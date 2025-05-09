@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import Profile from "./components/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreateEvent from "./components/createEvent";
+import EventDetails from "./components/EventDetails";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="event/:id" element={<EventDetails />} />
 
           <Route
             path="createEvent"
