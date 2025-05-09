@@ -16,7 +16,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="event/:id" element={<EventDetails />} />
+          <Route path="events/:id" element={<EventDetails />} />
 
           <Route
             path="createEvent"
