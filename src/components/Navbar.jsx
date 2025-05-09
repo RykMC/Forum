@@ -11,7 +11,7 @@ function Navbar() {
   };
 
   return (
-<nav className="bg-gray-900 text-white p-4 shadow-lg flex justify-between items-center">
+<nav className="bg-gradient-to-r from-blue-300 to-blue-800 text-white p-4 shadow-lg flex justify-between items-center">
   <div className="text-2xl font-bold tracking-wide hover:text-indigo-400 transition duration-300">
     <NavLink to="/">Event Scheduler</NavLink>
   </div>

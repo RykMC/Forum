@@ -28,9 +28,11 @@ function Profile() {
   }, []);
   if (!user) return <p>He bist du hier richtig?</p>;
   return (
-    <div>
-      <h2>Welcome, {user.email}</h2>
-      <p>created at: {user.createdAt}</p>
+    <div className="bg-gray-800 text-white p-6 rounded-2xl shadow-lg w-full max-w-md mx-auto mt-8 text-center">
+      <h2 className="text-2xl font-bold mb-2">Welcome, {user.email}</h2>
+      <p className="text-gray-400">
+        Bitte poste ein Ereignis. Mehr kannst du hier nicht tun.
+      </p>
     </div>
   );
 }
