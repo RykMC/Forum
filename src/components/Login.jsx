@@ -25,27 +25,40 @@ function Login() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <p>Email:</p>
-        <input
-          className="bg-gray-400"
-          type="text"
-          placeholder="email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-        />
-        <p>Passwort:</p>
-        <input
-          className="bg-gray-400"
-          type="password"
-          placeholder="password"
-          value={formData.password}
-          onChange={(e) =>
-            setFormData({ ...formData, password: e.target.value })
-          }
-        />
-        <button type="submit">LOGIN</button>
-      </form>
+<form
+  onSubmit={handleSubmit}
+  className="bg-gray-800 p-6 rounded-2xl shadow-lg w-full max-w-md mx-auto flex flex-col space-y-4 mt-10"
+>
+  <h2 className="text-2xl font-bold text-center text-white">Login</h2>
+  
+  <label className="text-gray-300">Email:</label>
+  <input
+    className="p-3 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+    type="text"
+    placeholder="email"
+    value={formData.email}
+    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+  />
+
+  <label className="text-gray-300">Passwort:</label>
+  <input
+    className="p-3 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+    type="password"
+    placeholder="password"
+    value={formData.password}
+    onChange={(e) =>
+      setFormData({ ...formData, password: e.target.value })
+    }
+  />
+
+  <button
+    type="submit"
+    className="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-xl shadow hover:scale-105 transition-all duration-300"
+  >
+    LOGIN
+  </button>
+</form>
+
     </>
   );
 }

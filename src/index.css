@@ -68,6 +68,8 @@ button:focus-visible {
   }
 }
 /****************************/
+
+/*
 * {
   margin: 0;
   padding: 0;
@@ -118,3 +120,4 @@ nav button:hover {
 .active {
   border-bottom: 2px solid white;
 }
+*/
