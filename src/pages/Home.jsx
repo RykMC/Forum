@@ -57,6 +57,7 @@ function Home() {
               <p className="text-gray-300 ">Location: {event.location}</p>
               <p className="text-gray-300 ">S || N: {event.latitude}</p>
               <p className="text-gray-300 ">O || W: {event.longitude}</p>
+              <Link to={`/events/${event.id}`}>DETAILS HIER LANG...</Link>
             </div>
           ))}
         </div>
