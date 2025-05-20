@@ -1,7 +1,8 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
+import { FaUserCircle, FaPlus, FaSignOutAlt, FaSignInAlt, FaUserPlus, FaComments, FaHome, FaTags, FaStar } from "react-icons/fa";
 
-function Navbar() {
+export default function Navbar() {
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -11,52 +12,53 @@ function Navbar() {
   };
 
   return (
-<nav className="bg-gradient-to-r from-blue-300 to-blue-800 text-white p-4 shadow-lg flex justify-between items-center">
-  <div className="text-2xl font-bold tracking-wide hover:text-indigo-400 transition duration-300">
-    <NavLink to="/">Event Scheduler</NavLink>
-  </div>
+    <nav className="bg-gradient-to-br from-gray-900 to-gray-800 text-white p-4 shadow-md border-b-2 border-yellow-400">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        {/* Logo / Name */}
+        <div className="flex items-center gap-3 text-yellow-300 font-bold text-xl tracking-wide">
+          <FaComments className="text-yellow-400" />
+          <NavLink to="/">Das (nicht mehr so) superschlaue React-Forum</NavLink>
+        </div>
 
-  <div className="flex space-x-4 items-center">
-    {isAuthenticated ? (
-      <div className="flex space-x-4 items-center">
-        <NavLink
-          to="/profile"
-          className="relative px-4 py-2 rounded hover:text-indigo-400 transition duration-300 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 before:bg-indigo-400 hover:before:w-full before:transition-all before:duration-300"
-        >
-          Profile
-        </NavLink>
-        <NavLink
-          to="/createEvent"
-          className="relative px-4 py-2 rounded hover:text-green-400 transition duration-300 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 before:bg-green-400 hover:before:w-full before:transition-all before:duration-300"
-        >
-          Create Event
-        </NavLink>
-        <button
-          onClick={handleLogout}
-          className="px-4 py-2 bg-red-500 hover:bg-red-600 rounded-xl shadow hover:scale-105 transition-all duration-300"
-        >
-          LOGOUT
-        </button>
+        {/* Navlinks */}
+        <div className="flex items-center gap-6 text-sm font-semibold">
+          <NavLink to="/" className="hover:text-yellow-400 flex items-center gap-2">
+            <FaHome /> Startseite
+          </NavLink>
+          <NavLink to="/kategorien" className="hover:text-yellow-400 flex items-center gap-2">
+            <FaTags /> Kategorien
+          </NavLink>
+          <NavLink to="/top" className="hover:text-yellow-400 flex items-center gap-2">
+            <FaStar /> Top Beiträge
+          </NavLink>
+        </div>
+
+        {/* Auth-Buttons */}
+        <div className="flex items-center gap-4">
+          {isAuthenticated ? (
+            <>
+              <NavLink to="/profile" className="flex items-center gap-1 hover:text-yellow-300">
+                <FaUserCircle /> Profil
+              </NavLink>
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-1 text-red-400 hover:text-red-600 transition"
+              >
+                <FaSignOutAlt /> Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLink to="/login" className="flex items-center gap-1 hover:text-yellow-300">
+                <FaSignInAlt /> Login
+              </NavLink>
+              <NavLink to="/register" className="flex items-center gap-1 hover:text-yellow-300">
+                <FaUserPlus /> Registrieren
+              </NavLink>
+            </>
+          )}
+        </div>
       </div>
-    ) : (
-      <div className="flex space-x-4 items-center">
-        <NavLink
-          to="/login"
-          className="relative px-4 py-2 rounded hover:text-indigo-400 transition duration-300 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 before:bg-indigo-400 hover:before:w-full before:transition-all before:duration-300"
-        >
-          Login
-        </NavLink>
-        <NavLink
-          to="/register"
-          className="relative px-4 py-2 rounded hover:text-indigo-400 transition duration-300 before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 before:bg-indigo-400 hover:before:w-full before:transition-all before:duration-300"
-        >
-          Register
-        </NavLink>
-      </div>
-    )}
-  </div>
-</nav>
+    </nav>
   );
 }
-
-export default Navbar;

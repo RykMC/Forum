@@ -1,68 +1,39 @@
-import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-import axios from "axios";
+// Home.jsx
 import { Link } from "react-router-dom";
 
-function Home() {
-  const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+const KATEGORIEN = {
+  "Grundlagen & Einstieg": {},
+  "Hooks & State-Management": {},
+  "Komponenten & Struktur": {},
+  "API & Datenhandling": {},
+  "Styling & UI": {},
+  "Routing & Navigation": {},
+  "Testing & Debugging": {},
+  "Build & Deployment": {},
+  "Fortgeschrittenes & Patterns": {}
+};
 
-  // const { eventId } = useParams();
-  // const eventId = 3;
-  // console.log(eventId);
-
-  useEffect(() => {
-    const fetchEvent = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get("http://localhost:3001/api/events");
-        setEvents(response.data.results);
-        // console.log(response.data);
-      } catch (error) {
-        console.error(error);
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchEvent();
-  }, []);
-
-  console.log(events);
-
+export default function Home() {
   return (
-    <div className="px-8 py-6 bg-gray-100 min-h-screen">
-      <h2 className="text-3xl font-bold mb-6 text-gray-400 text-center">
-        EVENTS
-      </h2>
-      {error && <p className="text-red-500">{error}</p>}
-      {loading ? (
-        <p className="text-gray-600">Loading...</p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
-          {events.map((event) => (
-            <div
-              key={event.id}
-              className=" bg-gray-400 text-white rounded shadow-md p-6 hover:shadow-xl transition-shadow"
-            >
-              {/* <Link to={`/products/${product.id}`}></Link> */}
-              <h3 className="text-lg text-center font-semibold mb-2">
-                {event.title}
-              </h3>
-              <p className="text-gray-300">Datum: {event.date}</p>
-              <p className="text-gray-300 ">
-                Beschreibung: {event.description}
-              </p>
-              <p className="text-gray-300 ">Location: {event.location}</p>
-              <p className="text-gray-300 ">S || N: {event.latitude}</p>
-              <p className="text-gray-300 ">O || W: {event.longitude}</p>
-              <Link to={`/events/${event.id}`}>DETAILS HIER LANG...</Link>
-            </div>
+    <div className="p-6 bg-gray-900 min-h-screen text-white">
+      <div className="max-w-4xl mx-auto space-y-6">
+        <h1 className="text-3xl font-bold text-yellow-300 border-b border-yellow-500 pb-2">
+          🗂️ Forum – Kategorien
+        </h1>
+
+        <ul className="gap-4">
+          {Object.keys(KATEGORIEN).map((gruppe) => (
+            <li key={gruppe}>
+              <Link
+                to={`/gruppe/${gruppe}`}
+                className="block bg-gray-800 hover:bg-gray-700 text-white rounded px-6 py-4 m-6 text-lg font-semibold transition"
+              >
+                {gruppe}
+              </Link>
+            </li>
           ))}
-        </div>
-      )}
+        </ul>
+      </div>
     </div>
   );
 }
-export default Home;
