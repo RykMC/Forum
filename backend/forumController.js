@@ -170,7 +170,8 @@ router.post("/topic", authenticateToken, async (req, res) => {
 
     const topicId = result.rows[0].id;
 
-//     // 2. GPT-Antwort über deine Proxy-API holen
+//      2. GPT-Antwort über deine Proxy-API holen
+//      ANTWORT IMMER FREUNDLICH oder Rollen verwenden
 //     const gptRes = await fetch("https://api.openai.com/v1/chat/completions", {
 //       method: "POST",
 //       headers: {
