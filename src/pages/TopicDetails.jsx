@@ -20,6 +20,12 @@ export default function TopicDetails() {
   const [antwort, setAntwort] = useState("");
   const [antwortError, setAntwortError] = useState("");
 
+  const avatarModule = import.meta.glob('../components/assets/avatare/*.png', { eager: true });
+  const avatarBilder = Object.entries(avatarModule).map(([pfad, modul]) => ({
+    dateiname: pfad.split("/").pop(),
+    url: modul.default
+  }));
+
 
   
   const handleAntwortAbsenden = async () => {
@@ -44,6 +50,10 @@ export default function TopicDetails() {
       setAntwortError("Fehler beim Absenden.");
     }
   };
+
+  const getAvatarUrl = (dateiname) =>
+  avatarBilder.find((a) => a.dateiname.toLowerCase().trim() === dateiname?.toLowerCase().trim())?.url;
+
 
   useEffect(() => {
     const loadTopicData = async () => {
@@ -87,12 +97,26 @@ export default function TopicDetails() {
         <>
        <div className="space-y-6">
           {/* Hauptbeitrag */}
-          <div className="bg-gray-800 rounded-lg p-4 shadow">
+         <div className="bg-gray-800 rounded-lg p-4 shadow flex gap-4">
+          <div className="w-24 text-center">
+            <img
+              src={getAvatarUrl(topic.avatar)}
+              alt="Avatar"
+              className="w-16 h-16 rounded-full mx-auto border-2 border-yellow-400"
+            />
+            <div className="text-yellow-300 text-sm mt-1">{topic.name || "?"}</div>
+            {topic.beitraege !== undefined && (
+              <div className="text-gray-400 text-xs">{topic.beitraege} Beiträge</div>
+            )}
+          </div>
+          <div className="flex-1">
             <div className="text-sm text-yellow-300 font-semibold mb-2">
-              {topic.name || "Unbekannt"} schrieb am {formatDate(topic.datum)} Uhr
+              schrieb am {formatDate(topic.datum)} Uhr
             </div>
             <div className="text-gray-200 whitespace-pre-line">{topic.inhalt}</div>
           </div>
+        </div>
+
 
           {/* Antworten */}
           {posts.length === 0 ? (
@@ -100,12 +124,26 @@ export default function TopicDetails() {
           ) : (
             <ul className="space-y-4">
               {posts.map((post) => (
-                <li key={post.id} className="bg-gray-800 rounded-lg p-4 shadow">
-                  <div className="text-sm text-yellow-300 font-semibold mb-2">
-                    {post.name || "Unbekannt"} schrieb am {formatDate(post.datum)} Uhr
+                <li key={post.id} className="bg-gray-800 rounded-lg p-4 shadow flex gap-4">
+                  <div className="w-24 text-center">
+                    <img
+                      src={getAvatarUrl(post.avatar)}
+                      alt="Avatar"
+                      className="w-12 h-12 rounded-full mx-auto border-2 border-yellow-500"
+                    />
+                    <div className="text-yellow-300 text-sm mt-1">{post.name || "?"}</div>
+                    {post.beitraege !== undefined && (
+                      <div className="text-gray-400 text-xs">{post.beitraege} Beiträge</div>
+                    )}
                   </div>
-                  <div className="text-gray-200 whitespace-pre-line">{post.inhalt}</div>
+                  <div className="flex-1">
+                    <div className="text-sm text-yellow-300 font-semibold mb-2">
+                      schrieb am {formatDate(post.datum)} Uhr
+                    </div>
+                    <div className="text-gray-200 whitespace-pre-line">{post.inhalt}</div>
+                  </div>
                 </li>
+
               ))}
             </ul>
           )}

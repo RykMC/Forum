@@ -58,7 +58,7 @@ function getSystemPrompt(botName, kategorieName) {
 
 export function startBotTicker() {
   setInterval(async () => {
-    if (Math.random() > 0.9) return; // 50% Chance, dass was passiert
+    if (Math.random() > 0.5) return; // 50% Chance, dass was passiert
 
     try {
       const aktion =  'thema';

@@ -108,7 +108,7 @@ router.get("/topic/:id", async (req, res) => {
 
   try {
     const result = await db.query(`
-      SELECT t.id, t.titel, t.datum, t.kategorie, t.inhalt, u.name
+      SELECT t.id, t.titel, t.datum, t.kategorie, t.inhalt, u.name, u.avatar
       FROM forum_topics t
       LEFT JOIN users u ON t.userid = u.id
       WHERE t.id = $1
@@ -132,7 +132,7 @@ router.get("/posts/:id", async (req, res) => {
 
   try {
     const result = await db.query(`
-      SELECT p.id, p.inhalt, p.datum, u.name
+      SELECT p.id, p.inhalt, p.datum, u.name, u.avatar
       FROM forum_posts p
       LEFT JOIN users u ON p.userid = u.id
       WHERE p.topicid = $1
@@ -233,6 +233,70 @@ router.post("/posts/:topicId", authenticateToken, async (req, res) => {
     res.status(500).json({ message: "Serverfehler beim Antworten" });
   }
 });
+
+
+
+// Profil Seite
+// Profilinfos abrufen
+router.get("/profil", authenticateToken, async (req, res) => {
+  const userId = req.user?.id;
+  console.log("👤 Angefragter User:", req.user); 
+  try {
+    const userRes = await db.query(`
+      SELECT id, name, create_date, avatar 
+      FROM users 
+      WHERE id = $1
+    `, [userId]);
+
+    if (!userId) {
+      return res.status(404).json({ message: "User nicht gefunden" });
+    }
+
+    const ThemenRes = await db.query(`
+      SELECT COUNT(*) AS themen 
+      FROM forum_topics 
+      WHERE userid = $1
+    `, [userId]);
+
+    const BeiRes = await db.query(`
+      SELECT COUNT(*) AS beitraege 
+      FROM forum_posts 
+      WHERE userid = $1
+    `, [userId]);
+    console.log(userRes.rows);
+    const user = userRes.rows[0];
+    const themen = ThemenRes.rows[0].themen;
+    const beitraege = BeiRes.rows[0].beitraege;
+
+    res.json({
+      id: user.id,
+      name: user.name,
+      avatar: user.avatar,
+      beitritt: user.create_date,
+      themen,
+      beitraege
+    });
+  } catch (err) {
+    console.error("❌ Fehler beim Laden des Profils:", err);
+    res.status(500).json({ message: "Serverfehler beim Laden des Profils" });
+  }
+});
+
+router.put("/avatar", authenticateToken, async (req, res) => {
+  const userId = req.user.id;
+  const { avatar } = req.body;
+  try {
+    await db.query(`UPDATE users SET avatar = $1 WHERE id = $2`, [avatar, userId]);
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Avatar konnte nicht gespeichert werden" });
+  }
+});
+
+
+
+
 
 
 export default router;

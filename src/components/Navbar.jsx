@@ -20,18 +20,6 @@ export default function Navbar() {
           <NavLink to="/">Das (nicht mehr so) superschlaue React-Forum</NavLink>
         </div>
 
-        {/* Navlinks */}
-        <div className="flex items-center gap-6 text-sm font-semibold">
-          <NavLink to="/" className="hover:text-yellow-400 flex items-center gap-2">
-            <FaHome /> Startseite
-          </NavLink>
-          <NavLink to="/kategorien" className="hover:text-yellow-400 flex items-center gap-2">
-            <FaTags /> Kategorien
-          </NavLink>
-          <NavLink to="/top" className="hover:text-yellow-400 flex items-center gap-2">
-            <FaStar /> Top Beiträge
-          </NavLink>
-        </div>
 
         {/* Auth-Buttons */}
         <div className="flex items-center gap-4">
