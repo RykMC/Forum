@@ -86,6 +86,7 @@ export default function TopicDetails() {
     });
 
   return (
+    <div className="p-6 bg-gray-900 min-h-screen text-white">
     <div className="p-6 bg-gray-900 min-h-screen text-white max-w-4xl mx-auto space-y-6 ">
       {error && <p className="text-red-500">{error}</p>}
 
@@ -171,6 +172,7 @@ export default function TopicDetails() {
         </div>
       )}
 
+    </div>
     </div>
   );
 }

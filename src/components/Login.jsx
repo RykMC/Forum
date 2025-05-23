@@ -27,6 +27,7 @@ function Login() {
   };
 
   return (
+    <div className="p-6 bg-gray-900 min-h-screen text-white">
     <form
       onSubmit={handleSubmit}
       className="bg-gray-800 p-6 rounded-2xl shadow-lg w-full max-w-md mx-auto flex flex-col space-y-4 mt-10"
@@ -70,6 +71,7 @@ function Login() {
         <p className="text-center text-red-400 text-sm mt-2">{errorMsg}</p>
       )}
     </form>
+    </div>
   );
 }
 

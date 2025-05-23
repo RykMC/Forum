@@ -59,6 +59,8 @@ export default function Profil() {
   const aktuellerAvatar = avatarBilder.find((a) => a.dateiname === profil.avatar)?.url;
   console.log("Der hier: ", profil.avatar);
   return (
+    
+     <div className="p-6 bg-gray-900 min-h-screen text-white">
     <div className="max-w-2xl mx-auto p-6 bg-gray-900 text-white min-h-screen space-y-6">
       <h1 className="text-3xl font-bold text-yellow-300 border-b border-yellow-500 pb-2">
         👤 Profil von {profil.name}
@@ -106,6 +108,8 @@ export default function Profil() {
           />
         ))}
       </div>
+    </div>
+    
     </div>
   );
 }

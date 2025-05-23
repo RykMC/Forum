@@ -40,6 +40,7 @@ export default function NeuesThema() {
   };
 
   return (
+    <div className="p-6 bg-gray-900 min-h-screen text-white">
     <div className="max-w-2xl mx-auto p-6 bg-gray-900 text-white rounded-lg shadow mt-10 min-h-screen">
       <h1 className="text-2xl font-bold text-yellow-400 mb-6">📝 Neues Thema erstellen</h1>
 
@@ -69,6 +70,7 @@ export default function NeuesThema() {
 
         {error && <p className="text-red-400 mt-2">{error}</p>}
       </form>
+    </div>
     </div>
   );
 }
